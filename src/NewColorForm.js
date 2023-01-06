@@ -17,8 +17,6 @@ const NewColorForm = ({ addColor }) => {
       ...colorInfo,
       [e.target.name]: e.target.value,
     }));
-
-    console.log(colorData);
   };
 
   const handleSubmit = (e) => {

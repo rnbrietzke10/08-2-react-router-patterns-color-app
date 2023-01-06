@@ -13,7 +13,7 @@ function App() {
   ];
   const [colors, setColors] = useState(INITIAL_STATE);
   const listOfColors = colors.map((color) => (
-    <li className="link-list-item">
+    <li className="link-list-item" key={color.colorCode}>
       <Link
         to={`/colors/${color.colorName}`}
         style={{ border: `1px solid ${color.colorCode} ` }}
@@ -25,7 +25,6 @@ function App() {
   ));
   const addColor = (newColor) => {
     setColors((colors) => [...colors, newColor]);
-    console.log(colors);
   };
 
   return (
