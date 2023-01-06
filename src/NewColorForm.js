@@ -1,31 +1,60 @@
 import React, { useState } from 'react';
 import './NewColorForm.css';
-const NewColorForm = () => {
+
+import { useNavigate } from 'react-router-dom';
+
+const NewColorForm = ({ addColor }) => {
+  const navigate = useNavigate();
+  const INITIAL_STATE = {
+    colorName: '',
+    colorCode: '#000000',
+  };
+  const [colorData, setColorData] = useState(INITIAL_STATE);
+
+  const handleChange = (e) => {
+    e.persist();
+    setColorData((colorInfo) => ({
+      ...colorInfo,
+      [e.target.name]: e.target.value,
+    }));
+
+    console.log(colorData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addColor({
+      colorName: colorData.colorName,
+      colorCode: colorData.colorCode,
+    });
+    setColorData(INITIAL_STATE);
+    navigate('/colors');
+  };
   return (
     <div className="form-container">
-      {/* onSubmit={handleSubmit} */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-input-container">
-          <label htmlFor="color">Enter Color Text:</label>
+          <label htmlFor="colorName">Enter Color Text:</label>
           <input
-            id="color"
+            id="colorName"
             type="text"
-            name="color"
-            // value={}
-            placeholder="Enter Color"
+            name="colorName"
+            value={colorData.colorName}
+            placeholder="Enter Color Name"
             className="form-input"
-            // onChange={handleChange}
+            onChange={handleChange}
           />
         </div>
 
         <div className="form-input-container">
-          <label htmlFor="selectedColor">Select your favorite color:</label>
+          <label htmlFor="colorCode">Select your favorite color:</label>
           <input
             type="color"
-            id="selectedColor"
-            name="selectedColor"
-            value="#ff0000"
-            // onChange={handleChange}
+            id="colorCode"
+            name="colorCode"
+            value={colorData.colorCode}
+            onChange={handleChange}
           />
         </div>
 
