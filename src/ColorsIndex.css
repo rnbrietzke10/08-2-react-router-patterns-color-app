@@ -1,0 +1,24 @@
+.heading-container {
+  height: 200px;
+}
+h1 {
+  margin: 30px 0;
+  color: #fff;
+
+  font-size: 4rem;
+}
+h2 {
+  color: #fff;
+  -webkit-text-stroke: 0.5px black;
+}
+.color-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px;
+}
