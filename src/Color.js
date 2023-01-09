@@ -1,18 +1,21 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import './Color.css';
-const Color = () => {
-  const routeParams = useParams();
+const Color = ({ colors }) => {
+  const { color } = useParams();
+  if (!colors.hasOwnProperty(color)) {
+    return <Navigate to="/colors" replace={true} />;
+  }
 
+  const hex = colors[color];
   return (
-    <div
-      className="color-container"
-      style={{ backgroundColor: routeParams.color }}
-    >
-      <h2>This color is {routeParams.color}</h2>
-      <Link to="/colors" className="btn-back">
-        Go back
-      </Link>
+    <div>
+      <div className="color-container" style={{ backgroundColor: hex }}>
+        <h2>This color is {color}</h2>
+        <Link to="/colors" className="btn-back">
+          Go back
+        </Link>
+      </div>
     </div>
   );
 };

@@ -22,13 +22,11 @@ const NewColorForm = ({ addColor }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    addColor({
-      colorName: colorData.colorName,
-      colorCode: colorData.colorCode,
-    });
+    addColor(colorData['colorName'], colorData['colorCode']);
     setColorData(INITIAL_STATE);
     navigate('/colors');
   };
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>

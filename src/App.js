@@ -1,30 +1,31 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import ColorsIndex from './ColorsIndex';
 import Color from './Color';
 import NewColorForm from './NewColorForm';
 
 function App() {
-  const INITIAL_STATE = [
-    { colorName: 'red', colorCode: '#ff0000' },
-    { colorName: 'green', colorCode: '#00ff00' },
-    { colorName: 'blue', colorCode: '#0000ff' },
-  ];
+  const INITIAL_STATE = { red: '#FF0000', green: '#00FF00', blue: '#0000FF' };
+
   const [colors, setColors] = useState(INITIAL_STATE);
-  const listOfColors = colors.map((color) => (
-    <li className="link-list-item" key={color.colorCode}>
+
+  console.log(Object.keys(colors));
+
+  const listOfColors = Object.keys(colors).map((color) => (
+    <li className="link-list-item" key={color}>
       <Link
-        to={`/colors/${color.colorName}`}
-        style={{ border: `1px solid ${color.colorCode} ` }}
+        to={`/colors/${color}`}
+        style={{ border: `1px solid ${colors[color]} ` }}
         className="btn"
       >
-        {color.colorName}
+        {color}
       </Link>
     </li>
   ));
-  const addColor = (newColor) => {
-    setColors((colors) => [...colors, newColor]);
+
+  const addColor = (color, hex) => {
+    setColors((colors) => ({ ...colors, [color]: hex }));
   };
 
   return (
@@ -34,11 +35,12 @@ function App() {
           path="/colors"
           element={<ColorsIndex listOfColors={listOfColors} />}
         />
-        <Route path="/colors/:color" element={<Color />} />
+        <Route path="/colors/:color" element={<Color colors={colors} />} />
         <Route
           path="/colors/new"
           element={<NewColorForm addColor={addColor} />}
         />
+        <Route path="*" element={<Navigate to="/colors" replace />} />
       </Routes>
     </div>
   );
