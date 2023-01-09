@@ -10,8 +10,6 @@ function App() {
 
   const [colors, setColors] = useState(INITIAL_STATE);
 
-  console.log(Object.keys(colors));
-
   const listOfColors = Object.keys(colors).map((color) => (
     <li className="link-list-item" key={color}>
       <Link
